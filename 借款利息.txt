@@ -1,0 +1,55 @@
+package com.Final;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class test001 {
+public static void main(String[] args) {
+	//Date borrowDate =  new Date();//借款日期
+	//int borrowmonth =1;//借多久
+	
+	
+	 //金额
+	double amo=10000;
+	//期数
+	int mon =12;
+	//借款日期
+	Date date=new Date();
+	//每月还款本金
+	double li =amo/mon;
+	//利息
+	//double xi =0.012*10000;
+	//剩余本金
+	
+	
+	String string=String.format("%.2f", li);
+	li=Double.parseDouble(string);
+	
+	List <String> dates =FinalUtil.reply(date, mon);
+	List<ReturnRich> re =new ArrayList<ReturnRich>();
+	
+	for(int i=0;i<mon;i++){
+		ReturnRich r=new ReturnRich();
+			
+			r.setIndex(i+1);
+			r.setDate(dates.get(i));
+			if(i==mon - 1){
+				double last = amo-(mon-1)*li;
+				last=Double.parseDouble(String.format("%.2f", last));
+				r.setBenJin(last);
+			}else{
+				r.setBenJin(li);
+			}
+		
+			double leftam =amo-li*i;
+			double afteram =leftam*0.012;
+			afteram=Double.parseDouble(String.format("%.2f", afteram));
+			r.setLiXi(afteram);
+			re.add(r);
+	}
+	  for(ReturnRich s:re){
+		  System.out.println(s);
+	  }
+}
+}
